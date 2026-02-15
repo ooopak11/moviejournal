@@ -2,7 +2,8 @@ param(
   [string]$GithubAppId,
   [string]$GithubAppSecret,
   [string]$GoogleAppId,
-  [string]$GoogleAppSecret
+  [string]$GoogleAppSecret,
+  [switch]$GoogleOnly
 )
 
 if (-not (Test-Path ".env")) {
@@ -25,7 +26,12 @@ if (-not [string]::IsNullOrWhiteSpace($GoogleAppSecret)) {
   $content = [regex]::Replace($content, "(?m)^GOOGLE_APP_SECRET=.*$", "GOOGLE_APP_SECRET=$GoogleAppSecret")
 }
 
+if ($GoogleOnly) {
+  $content = [regex]::Replace($content, "(?m)^GITHUB_APP_ID=.*$", "GITHUB_APP_ID=")
+  $content = [regex]::Replace($content, "(?m)^GITHUB_APP_SECRET=.*$", "GITHUB_APP_SECRET=")
+  $content = [regex]::Replace($content, "(?m)^GITHUB_AUTO_REGISTER=.*$", "GITHUB_AUTO_REGISTER=false")
+}
+
 Set-Content ".env" $content
 Write-Host ".env OAuth values updated."
 Write-Host "Run: docker compose up -d --force-recreate"
-

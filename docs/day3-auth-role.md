@@ -14,11 +14,10 @@
 .\scripts\configure-registration-role.ps1 -RoleName "Editor"
 ```
 
-## 2) OAuth 앱 생성 (Google, GitHub)
+## 2) OAuth 앱 생성 (Google 전용)
 
 콜백 URL 등록:
 
-- GitHub: `http://localhost:6875/login/service/github/callback`
 - Google: `http://localhost:6875/login/service/google/callback`
 
 `APP_URL`이 바뀌면 콜백 URL도 동일하게 변경해야 함.
@@ -32,9 +31,9 @@
 ## 3) `.env` 설정
 
 ```env
-GITHUB_APP_ID=<client id>
-GITHUB_APP_SECRET=<client secret>
-GITHUB_AUTO_REGISTER=true
+GITHUB_APP_ID=
+GITHUB_APP_SECRET=
+GITHUB_AUTO_REGISTER=false
 
 GOOGLE_APP_ID=<client id>
 GOOGLE_APP_SECRET=<client secret>
@@ -45,10 +44,9 @@ GOOGLE_AUTO_REGISTER=true
 
 ```powershell
 .\scripts\set-oauth-env.ps1 `
-  -GithubAppId "<github client id>" `
-  -GithubAppSecret "<github client secret>" `
   -GoogleAppId "<google client id>" `
-  -GoogleAppSecret "<google client secret>"
+  -GoogleAppSecret "<google client secret>" `
+  -GoogleOnly
 ```
 
 ## 4) 재기동
@@ -70,14 +68,17 @@ docker compose up -d
 
 ## 6) 체크포인트 C 검수 항목
 
-1. GitHub 로그인 성공
-2. Google 로그인 성공
-3. 첫 로그인 시 자동 가입
-4. 신규 계정의 기본 역할이 `Editor`
-5. 리비전 히스토리로 롤백 가능
+1. Google 로그인 성공
+2. 첫 로그인 시 자동 가입
+3. 신규 계정의 기본 역할이 `Editor`
+4. 리비전 히스토리로 롤백 가능
 
 로그인 페이지 버튼 확인:
 
 ```powershell
 .\scripts\check-login-providers.ps1
 ```
+
+기대값:
+- `GitHub button: False`
+- `Google button: True`
