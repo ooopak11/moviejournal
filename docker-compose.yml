@@ -1,0 +1,48 @@
+services:
+  bookstack_db:
+    image: lscr.io/linuxserver/mariadb:latest
+    container_name: moviejournal_db
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - bookstack_db_data:/config
+
+  bookstack:
+    image: lscr.io/linuxserver/bookstack:latest
+    container_name: moviejournal_bookstack
+    restart: unless-stopped
+    depends_on:
+      - bookstack_db
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      - APP_URL=${APP_URL}
+      - APP_KEY=${APP_KEY}
+      - DB_HOST=bookstack_db
+      - DB_PORT=3306
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
+      - AUTH_METHOD=standard
+      - GITHUB_APP_ID=${GITHUB_APP_ID}
+      - GITHUB_APP_SECRET=${GITHUB_APP_SECRET}
+      - GITHUB_AUTO_REGISTER=${GITHUB_AUTO_REGISTER}
+      - GOOGLE_APP_ID=${GOOGLE_APP_ID}
+      - GOOGLE_APP_SECRET=${GOOGLE_APP_SECRET}
+      - GOOGLE_AUTO_REGISTER=${GOOGLE_AUTO_REGISTER}
+    volumes:
+      - bookstack_data:/config
+    ports:
+      - "${BOOKSTACK_PORT}:80"
+
+volumes:
+  bookstack_data:
+  bookstack_db_data:

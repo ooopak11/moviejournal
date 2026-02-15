@@ -1,0 +1,29 @@
+# Movie Journal 번역 협업 워크스페이스
+
+Jonas Mekas의 *Movie Journal* 공동 번역/열람 사이트를 BookStack으로 구축하는 프로젝트입니다.
+
+## 현재 상태
+
+- Day 1 기획 문서화 완료.
+- Day 2 로컬 인프라 구성 파일 작성 완료.
+- Docker Compose로 BookStack/MariaDB 기동 확인 완료.
+
+## 구성 파일
+
+- `docs/implementation-plan.md`: 7일 구축 일정과 체크포인트
+- `docs/day1-foundation.md`: 권한 정책, 메타데이터, 페이지 템플릿
+- `docs/day2-runbook.md`: 로컬 스택 실행 절차
+- `docs/day3-auth-role.md`: Google/GitHub OAuth 및 역할 설정
+- `docs/wiki-policy-benchmark.md`: 대표 위키 정책 벤치마크와 권한 권고안
+- `docker-compose.yml`: BookStack + MariaDB 스택
+- `.env.example`: 환경 변수 템플릿
+- `scripts/bootstrap.ps1`: `.env` 생성(APP_KEY/DB 비밀번호 자동 생성)
+- `scripts/validate-env.ps1`: `.env` 검증
+- `scripts/backup-db.ps1`: MariaDB 백업
+
+## 빠른 시작
+
+1. `.\scripts\bootstrap.ps1`
+2. `.\scripts\validate-env.ps1`
+3. `docker compose up -d`
+4. 브라우저에서 `http://localhost:6875` 접속
