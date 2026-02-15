@@ -1,6 +1,20 @@
 # Day 3 인증/권한 설정
 
-## 1) OAuth 앱 생성 (Google, GitHub)
+## 1) 관리자 계정 준비
+
+초기 관리자 계정이 없다면 아래로 생성:
+
+```powershell
+.\scripts\create-admin.ps1 -Email "admin@example.com" -Name "Admin" -GeneratePassword -Initial
+```
+
+등록 기본 권한을 `Editor`로 적용:
+
+```powershell
+.\scripts\configure-registration-role.ps1 -RoleName "Editor"
+```
+
+## 2) OAuth 앱 생성 (Google, GitHub)
 
 콜백 URL 등록:
 
@@ -9,7 +23,13 @@
 
 `APP_URL`이 바뀌면 콜백 URL도 동일하게 변경해야 함.
 
-## 2) `.env` 설정
+`APP_URL` 기준 콜백 URL 자동 확인:
+
+```powershell
+.\scripts\show-callback-urls.ps1
+```
+
+## 3) `.env` 설정
 
 ```env
 GITHUB_APP_ID=<client id>
@@ -21,21 +41,24 @@ GOOGLE_APP_SECRET=<client secret>
 GOOGLE_AUTO_REGISTER=true
 ```
 
-## 3) 재기동
+## 4) 재기동
 
 ```powershell
 docker compose down
 docker compose up -d
 ```
 
-## 4) BookStack 관리자 화면 역할 설정
+## 5) BookStack 관리자 화면 역할 설정
 
-1. `Admin`, `Editor`, `Viewer` 역할 확인/생성
-2. `Editor`에 페이지 생성/수정 권한 부여
-3. `Viewer`는 읽기 전용 유지
-4. 베타 단계 기본 등록 역할을 `Editor`로 설정
+1. `Settings > Registration`으로 이동
+2. `Enable registration` 활성화
+3. `Default user role after registration`을 `Editor`로 설정
+4. 저장
+5. `Roles & Permissions`에서 `Editor`, `Viewer` 권한 확인
 
-## 5) 체크포인트 C 검수 항목
+스크립트를 썼다면 위 값이 이미 반영되어 있을 수 있음.
+
+## 6) 체크포인트 C 검수 항목
 
 1. GitHub 로그인 성공
 2. Google 로그인 성공
