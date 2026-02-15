@@ -4,14 +4,13 @@
 <style id="moviejournal-theme">
 :root {
   --mj-paper: #c3b392;
-  --mj-paper-soft: #cec0a4;
   --mj-ink: #1d1712;
-  --mj-ink-soft: #3a2f25;
-  --mj-border: #8f7f64;
+  --mj-border: rgba(48, 36, 24, 0.55);
 }
 
+html,
 body,
-html {
+#app {
   background: var(--mj-paper) !important;
   color: var(--mj-ink) !important;
 }
@@ -21,11 +20,15 @@ body {
   letter-spacing: 0.01em;
 }
 
-#app {
-  background:
-    radial-gradient(circle at 8% 15%, rgba(255,255,255,0.09) 0 1px, transparent 2px) 0 0/26px 24px,
-    radial-gradient(circle at 80% 70%, rgba(95,72,45,0.08) 0 1px, transparent 2px) 0 0/34px 30px,
-    linear-gradient(180deg, var(--mj-paper-soft), var(--mj-paper));
+.header {
+  background: rgba(223, 210, 182, 0.96) !important;
+  border-bottom: 1px solid rgba(60, 43, 29, 0.24) !important;
+}
+
+.header-search-box,
+.search-box {
+  background: rgba(178, 164, 136, 0.9) !important;
+  border-color: transparent !important;
 }
 
 .primary-background,
@@ -36,8 +39,9 @@ body {
 .tag-item,
 .dropdown-menu,
 .slim-scroll {
-  background-color: rgba(236, 224, 198, 0.8) !important;
-  border-color: rgba(143, 127, 100, 0.45) !important;
+  background: transparent !important;
+  border-color: rgba(84, 65, 45, 0.24) !important;
+  box-shadow: none !important;
 }
 
 .content-wrap,
@@ -48,7 +52,7 @@ body {
 .page-content blockquote {
   color: var(--mj-ink) !important;
   font-size: 1.12rem;
-  line-height: 1.72;
+  line-height: 1.74;
 }
 
 .page-content h1,
@@ -57,88 +61,82 @@ body {
 .entity-title,
 .entity-list-item-name {
   font-family: "Cormorant Garamond", "Noto Serif KR", serif !important;
-  letter-spacing: 0.02em;
   color: #15100d !important;
 }
 
 .page-content h1 {
   font-size: 3rem;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  margin: 0 0 1.1rem;
 }
 
 .page-content h2 {
-  font-size: 1.55rem;
   margin-top: 1.8rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--mj-border);
+  font-size: 1.8rem;
+}
+
+.page-content h3 {
+  margin-top: 1.3rem;
+  font-size: 1.35rem;
 }
 
 .page-content hr {
-  border-color: rgba(58, 47, 37, 0.3);
-}
-
-.page-content code,
-.page-content pre {
-  background: rgba(70, 48, 31, 0.1) !important;
-  border-color: rgba(70, 48, 31, 0.15) !important;
-  color: #241a13 !important;
-}
-
-.header,
-.header-search-box,
-.search-box,
-.page-editor-toolbar,
-.entity-meta {
-  border-color: rgba(58, 47, 37, 0.28) !important;
+  border-color: var(--mj-border);
 }
 
 a,
 .link,
 .entity-meta a {
-  color: #3b2614 !important;
+  color: #2f1f12 !important;
 }
 
 .button,
 .button.outline {
-  border-color: #4d3928 !important;
+  background: transparent !important;
+  border-color: rgba(60, 43, 29, 0.4) !important;
   color: #2a1d13 !important;
-  background: rgba(236, 224, 198, 0.65) !important;
 }
 
 .button:hover {
-  background: rgba(212, 196, 163, 0.82) !important;
+  background: rgba(201, 186, 156, 0.34) !important;
 }
 
-.mj-page-reader .tri-layout-sides {
+.mj-reader-active .tri-layout-sides,
+.mj-reader-active nav.breadcrumbs,
+.mj-reader-active #sibling-navigation,
+.mj-reader-active .comments-container,
+.mj-reader-active #pointer,
+.mj-reader-active .entity-header-actions,
+.mj-reader-active .entity-header .actions,
+.mj-reader-active a[href*="/export/"],
+.mj-reader-active a[href*="/favorite"],
+.mj-reader-active a[href*="/favourite"] {
   display: none !important;
 }
 
-.mj-page-reader #header {
-  display: none !important;
-}
-
-.mj-page-reader .tri-layout-container {
-  max-width: 940px !important;
-}
-
-.mj-page-reader .tri-layout-middle {
+.mj-reader-active .tri-layout-middle {
   width: 100% !important;
-  margin: 0 auto !important;
 }
 
-.mj-page-reader .content-wrap.card {
+.mj-reader-active .tri-layout-container {
+  max-width: 980px !important;
+}
+
+.mj-reader-active .content-wrap.card {
+  background: transparent !important;
   border: none !important;
   box-shadow: none !important;
-  background: transparent !important;
-  padding: 2.3rem 0 0 !important;
+  padding: 1.25rem 0 0 !important;
 }
 
-.mj-page-reader .page-content {
-  background:
-    radial-gradient(circle at 20% 10%, rgba(255,255,255,0.08) 0 1px, transparent 2px) 0 0/24px 22px,
-    linear-gradient(180deg, rgba(229,216,188,0.95), rgba(218,202,170,0.96));
-  border: 1px solid rgba(96, 73, 48, 0.24);
-  box-shadow: 0 10px 28px rgba(37, 22, 8, 0.14);
-  padding: 2.4rem 3rem;
+.mj-reader-active .page-content {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 1.1rem 2.4rem 2.8rem !important;
 }
 
 .mj-reader-hidden {
@@ -147,257 +145,105 @@ a,
 
 .mj-page-meta-footer {
   margin-top: 2.2rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(73, 55, 36, 0.25);
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--mj-border);
 }
 
 .mj-page-meta-footer .entity-meta {
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
-  color: rgba(42, 32, 23, 0.75) !important;
-  font-size: 0.88rem !important;
-  line-height: 1.35;
+  font-size: 0.9rem !important;
+  line-height: 1.3;
+  color: rgba(33, 24, 16, 0.78) !important;
 }
 
 .mj-page-meta-footer .entity-meta-item {
-  opacity: 0.82;
+  opacity: 0.84;
 }
 
-.mj-reader-topbar {
-  position: fixed;
-  top: 0.55rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 90;
-  width: min(940px, calc(100vw - 1rem));
-  padding: 0.35rem 0.6rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: 1px solid rgba(56, 43, 31, 0.24);
-  background: rgba(220, 205, 173, 0.88);
-  backdrop-filter: blur(3px);
-  box-shadow: 0 8px 22px rgba(40, 28, 14, 0.12);
-}
-
-.mj-reader-brand {
-  color: #20150d !important;
-  font-size: 0.98rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  text-decoration: none;
-}
-
-.mj-reader-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-}
-
-.mj-reader-chip {
-  border: 1px solid rgba(59, 41, 24, 0.34);
-  background: rgba(239, 229, 205, 0.78);
-  color: #2b1e14;
-  border-radius: 999px;
-  padding: 0.28rem 0.75rem;
-  font-size: 0.79rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-
-.mj-reader-chip:hover {
-  background: rgba(229, 213, 181, 0.92);
-}
-
-.mj-reader-drawer {
-  position: fixed;
-  top: 3.15rem;
-  left: 50%;
-  transform: translate(-50%, -14px);
-  opacity: 0;
-  pointer-events: none;
-  z-index: 89;
-  width: min(940px, calc(100vw - 1rem));
-  max-height: 72vh;
-  overflow: auto;
-  border: 1px solid rgba(56, 43, 31, 0.24);
-  background: rgba(228, 213, 183, 0.97);
-  box-shadow: 0 16px 34px rgba(30, 20, 9, 0.2);
-  transition: transform 160ms ease, opacity 160ms ease;
-}
-
-.mj-reader-drawer.is-open {
-  transform: translate(-50%, 0);
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.mj-drawer-inner {
-  padding: 1rem 1.2rem 1.15rem;
-}
-
-.mj-drawer-title {
-  margin: 0 0 0.55rem;
-  font-size: 0.86rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(43, 30, 20, 0.82);
-}
-
-.mj-contents-list {
-  display: grid;
-  gap: 0.3rem;
-}
-
-.mj-contents-row {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: baseline;
-  border-bottom: 1px solid rgba(52, 37, 25, 0.3);
-  padding: 0.44rem 0 0.38rem;
-}
-
-.mj-contents-row a {
-  text-decoration: none;
-  font-size: 1.6rem;
-  letter-spacing: 0.02em;
-  font-family: "Cormorant Garamond", "Noto Serif KR", serif;
-  color: #1d130d !important;
-}
-
-.mj-contents-row span {
-  font-size: 0.95rem;
-  font-style: italic;
-  color: rgba(36, 25, 15, 0.76);
-}
-
-.mj-search-form {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 0.55rem;
-  margin-top: 0.65rem;
-}
-
-.mj-search-form input {
-  border: 1px solid rgba(57, 40, 23, 0.35);
-  background: rgba(244, 236, 219, 0.92);
-  padding: 0.56rem 0.7rem;
-  font-family: "Cormorant Garamond", "Noto Serif KR", serif;
-  font-size: 1rem;
-}
-
-.mj-search-form button {
-  border: 1px solid rgba(57, 40, 23, 0.4);
-  background: rgba(219, 198, 162, 0.95);
-  color: #2e2014;
-  padding: 0.56rem 0.85rem;
-  cursor: pointer;
-}
-
-.mj-page-reader .entity-header-actions,
-.mj-page-reader .entity-header .actions,
-.mj-page-reader a[href*="/export/"],
-.mj-page-reader a[href*="/favorite"],
-.mj-page-reader a[href*="/favourite"] {
+.mj-contents-page h1#bkmrk-page-title {
   display: none !important;
 }
 
-.mj-page-reader.mj-contents-page .page-content h1#bkmrk-page-title {
-  display: none;
-}
-
 .mj-book-contents {
-  display: grid;
-  grid-template-columns: minmax(120px, 0.35fr) 1fr;
-  gap: 2rem;
-  align-items: start;
   margin-top: 0.45rem;
 }
 
 .mj-book-contents-label {
-  margin-top: 0.9rem;
   font-family: "Noto Serif KR", serif;
-  font-size: 2rem;
+  font-size: 2.1rem;
   font-weight: 700;
   letter-spacing: 0.04em;
+  margin: 0 0 1rem;
 }
 
 .mj-book-contents-list {
   display: grid;
-  gap: 0.35rem;
 }
 
 .mj-book-contents-row {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: baseline;
-  padding: 0.65rem 0 0.55rem;
-  border-top: 1px solid rgba(30, 22, 15, 0.7);
+  border-top: 1px solid var(--mj-border);
+  padding: 0.72rem 0 0.58rem;
 }
 
 .mj-book-contents-row:last-child {
-  border-bottom: 1px solid rgba(30, 22, 15, 0.7);
+  border-bottom: 1px solid var(--mj-border);
 }
 
 .mj-book-contents-row a {
   text-decoration: none;
-  color: #120d09 !important;
-  font-size: 3rem;
+  color: #140f0b !important;
+  font-size: 3.05rem;
   line-height: 1;
   letter-spacing: 0.015em;
   text-transform: uppercase;
 }
 
 .mj-book-contents-row span {
-  font-size: 2rem;
-  font-style: italic;
-  color: rgba(32, 22, 14, 0.86);
+  display: none !important;
 }
 
 @media (max-width: 900px) {
-  .mj-page-reader .page-content {
-    padding: 1.2rem 1rem;
-  }
   .page-content h1 {
     font-size: 2rem;
   }
-  .mj-reader-brand {
-    font-size: 0.8rem;
-    letter-spacing: 0.08em;
-  }
-  .mj-reader-chip {
-    padding: 0.25rem 0.55rem;
-    font-size: 0.72rem;
-  }
-  .mj-contents-row a {
-    font-size: 1.35rem;
-  }
-  .mj-book-contents {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+  .mj-reader-active .page-content {
+    padding: 0.6rem 0.9rem 1.9rem !important;
   }
   .mj-book-contents-label {
-    font-size: 1.4rem;
-    margin-top: 0;
+    font-size: 1.5rem;
   }
   .mj-book-contents-row a {
-    font-size: 2.05rem;
-  }
-  .mj-book-contents-row span {
-    font-size: 1.25rem;
+    font-size: 2.1rem;
   }
 }
 </style>
 <script>
 (function () {
+  function initReaderMode() {
   function normalize(text) {
-    return (text || "").trim().toLowerCase().replace(/\s+/g, " ");
+    var value = String(text || "").toLowerCase();
+    var out = "";
+    var prevSpace = true;
+    for (var i = 0; i < value.length; i++) {
+      var code = value.charCodeAt(i);
+      var isSpace = code === 32 || code === 9 || code === 10 || code === 13;
+      if (isSpace) {
+        if (!prevSpace) out += " ";
+        prevSpace = true;
+      } else {
+        out += value.charAt(i);
+        prevSpace = false;
+      }
+    }
+    return out.trim();
   }
 
   function isHeading(el) {
-    return !!el && /^H[1-4]$/.test(el.tagName);
+    if (!el || !el.tagName) return false;
+    var tag = el.tagName.toUpperCase();
+    return tag === "H1" || tag === "H2" || tag === "H3" || tag === "H4";
   }
 
   function hideSectionFrom(headingEl) {
@@ -409,101 +255,35 @@ a,
     }
   }
 
-  var body = document.body;
-  if (!body) return;
-
-  var isEditLike = body.classList.contains("flexbox") || /\/edit$/.test(window.location.pathname);
-  if (isEditLike) return;
+  var path = window.location.pathname || "";
+  if (path.indexOf("/edit") !== -1) return;
 
   var pageBody = document.querySelector(".page-content > div[dir='auto']");
   if (!pageBody) return;
 
-  body.classList.add("mj-page-reader");
+  var body = document.body;
+  if (!body) return;
+
+  body.classList.add("mj-reader-active");
+
   var pageTitle = pageBody.querySelector("h1#bkmrk-page-title");
-  var isContentsPage = pageTitle && normalize(pageTitle.textContent) === "contents";
-  if (isContentsPage) {
+  if (pageTitle && normalize(pageTitle.textContent) === "contents") {
     body.classList.add("mj-contents-page");
   }
 
-  var pathMatch = window.location.pathname.match(/\/books\/([^\/]+)/);
-  var bookSlug = pathMatch ? pathMatch[1] : "movie-journal";
-  var bookBasePath = "/books/" + bookSlug;
-  var hasLogoutAction = !!document.querySelector('a[href$="/logout"], form[action$="/logout"]');
-
-  var topBar = document.createElement("div");
-  topBar.className = "mj-reader-topbar print-hidden";
-  topBar.innerHTML =
-    '<a class="mj-reader-brand" href="' + bookBasePath + '">Movie Journal</a>' +
-    '<div class="mj-reader-actions">' +
-      '<button type="button" class="mj-reader-chip" data-mj-open="contents">Contents</button>' +
-      '<button type="button" class="mj-reader-chip" data-mj-open="search">Search</button>' +
-      (hasLogoutAction ? "" : '<a class="mj-reader-chip" href="/login">Login</a>') +
-    "</div>";
-
-  var tocEntries = [
-    { label: "Introduction", href: bookBasePath + "/page/introduction", page: "page vii" },
-    { label: "1959", href: bookBasePath + "/chapter/1959", page: "page i" },
-    { label: "1960", href: bookBasePath + "/chapter/1960", page: "page 9" },
-    { label: "1961", href: bookBasePath + "/chapter/1961", page: "page 22" },
-    { label: "1962", href: bookBasePath + "/chapter/1962", page: "page 46" },
-    { label: "1963", href: bookBasePath + "/chapter/1963", page: "page 77" },
-    { label: "1964", href: bookBasePath + "/chapter/1964", page: "page 111" },
-    { label: "1965", href: bookBasePath + "/chapter/1965", page: "page 173" },
-    { label: "1966", href: bookBasePath + "/chapter/1966", page: "page 222" },
-    { label: "1967", href: bookBasePath + "/chapter/1967", page: "page 264" },
-    { label: "1968", href: bookBasePath + "/chapter/1968", page: "page 303" }
-  ];
-  var tocRowsHtml = tocEntries.map(function (entry) {
-    return '<div class="mj-contents-row"><a href="' + entry.href + '">' + entry.label + "</a><span>" + entry.page + "</span></div>";
-  }).join("");
-
-  var drawer = document.createElement("div");
-  drawer.className = "mj-reader-drawer print-hidden";
-  drawer.innerHTML =
-    '<div class="mj-drawer-inner" data-mj-section="contents">' +
-      '<h3 class="mj-drawer-title">Contents</h3>' +
-      '<div class="mj-contents-list">' + tocRowsHtml + "</div>" +
-    "</div>" +
-    '<div class="mj-drawer-inner mj-reader-hidden" data-mj-section="search">' +
-      '<h3 class="mj-drawer-title">Search</h3>' +
-      '<form class="mj-search-form" action="/search" method="GET">' +
-        '<input type="text" name="term" placeholder="Search timeline" />' +
-        '<button type="submit">Open</button>' +
-      "</form>" +
-    "</div>";
-
-  document.body.prepend(drawer);
-  document.body.prepend(topBar);
-
-  function setDrawer(section, isOpen) {
-    drawer.classList.toggle("is-open", isOpen);
-    var sections = drawer.querySelectorAll("[data-mj-section]");
-    sections.forEach(function (el) {
-      var active = el.getAttribute("data-mj-section") === section;
-      el.classList.toggle("mj-reader-hidden", !active);
-    });
+  var firstHeading = null;
+  var child = pageBody.firstElementChild;
+  while (child) {
+    if (isHeading(child) && child.id !== "bkmrk-page-title") {
+      firstHeading = child;
+      break;
+    }
+    child = child.nextElementSibling;
   }
 
-  var openButtons = topBar.querySelectorAll("[data-mj-open]");
-  openButtons.forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      var section = btn.getAttribute("data-mj-open");
-      var isOpen = drawer.classList.contains("is-open");
-      var active = drawer.querySelector('[data-mj-section]:not(.mj-reader-hidden)');
-      var activeName = active ? active.getAttribute("data-mj-section") : "";
-      if (isOpen && activeName === section) {
-        setDrawer(section, false);
-      } else {
-        setDrawer(section, true);
-      }
-    });
-  });
-
-  document.addEventListener("click", function (e) {
-    if (!drawer.contains(e.target) && !topBar.contains(e.target)) {
-      drawer.classList.remove("is-open");
-    }
-  });
+  if (pageTitle && firstHeading && normalize(pageTitle.textContent) === normalize(firstHeading.textContent)) {
+    firstHeading.classList.add("mj-reader-hidden");
+  }
 
   var headings = Array.prototype.slice.call(pageBody.querySelectorAll("h2,h3,h4"));
   var editorOnlyNames = new Set([
@@ -521,37 +301,6 @@ a,
     }
   });
 
-  var koreanHeadingNames = new Set([
-    "korean translation",
-    "korean text",
-    "번역",
-    "번역문",
-    "한국어 번역"
-  ]);
-
-  var koreanHeading = headings.find(function (h) {
-    return koreanHeadingNames.has(normalize(h.textContent));
-  });
-
-  if (koreanHeading) {
-    var keep = new Set();
-    var title = pageBody.querySelector("h1#bkmrk-page-title");
-    if (title) keep.add(title);
-
-    var node = koreanHeading;
-    while (node) {
-      keep.add(node);
-      node = node.nextElementSibling;
-      if (node && isHeading(node)) break;
-    }
-
-    Array.prototype.slice.call(pageBody.children).forEach(function (child) {
-      if (!keep.has(child) && !child.classList.contains("mj-page-meta-footer")) {
-        child.classList.add("mj-reader-hidden");
-      }
-    });
-  }
-
   var sideMeta = document.querySelector("#page-details .entity-meta");
   if (sideMeta && !pageBody.querySelector(".mj-page-meta-footer")) {
     var footer = document.createElement("section");
@@ -566,6 +315,13 @@ a,
 
     footer.appendChild(clonedMeta);
     pageBody.appendChild(footer);
+  }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initReaderMode);
+  } else {
+    initReaderMode();
   }
 })();
 </script>

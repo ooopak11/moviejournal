@@ -149,25 +149,24 @@ $introductionPage = $upsertPage($book, 'Introduction', $introduction);
 $upsertPage($book, 'Entry Template', $entryTemplate);
 
 $tocRows = [
-    ['label' => 'Introduction', 'url' => '/books/' . $book->slug . '/page/' . $introductionPage->slug, 'page' => 'page vii'],
-    ['label' => '1959', 'url' => '/books/' . $book->slug . '/chapter/' . $chapters['1959']->slug, 'page' => 'page i'],
-    ['label' => '1960', 'url' => '/books/' . $book->slug . '/chapter/' . $chapters['1960']->slug, 'page' => 'page 9'],
-    ['label' => '1961', 'url' => '/books/' . $book->slug . '/chapter/' . $chapters['1961']->slug, 'page' => 'page 22'],
-    ['label' => '1962', 'url' => '/books/' . $book->slug . '/chapter/' . $chapters['1962']->slug, 'page' => 'page 46'],
-    ['label' => '1963', 'url' => '/books/' . $book->slug . '/chapter/' . $chapters['1963']->slug, 'page' => 'page 77'],
-    ['label' => '1964', 'url' => '/books/' . $book->slug . '/chapter/' . $chapters['1964']->slug, 'page' => 'page 111'],
-    ['label' => '1965', 'url' => '/books/' . $book->slug . '/chapter/' . $chapters['1965']->slug, 'page' => 'page 173'],
-    ['label' => '1966', 'url' => '/books/' . $book->slug . '/chapter/' . $chapters['1966']->slug, 'page' => 'page 222'],
-    ['label' => '1967', 'url' => '/books/' . $book->slug . '/chapter/' . $chapters['1967']->slug, 'page' => 'page 264'],
-    ['label' => '1968', 'url' => '/books/' . $book->slug . '/chapter/' . $chapters['1968']->slug, 'page' => 'page 303'],
+    ['label' => 'Introduction', 'url' => '/books/' . $book->slug . '/page/' . $introductionPage->slug],
+    ['label' => '1959', 'url' => '/books/' . $book->slug . '/chapter/' . $chapters['1959']->slug],
+    ['label' => '1960', 'url' => '/books/' . $book->slug . '/chapter/' . $chapters['1960']->slug],
+    ['label' => '1961', 'url' => '/books/' . $book->slug . '/chapter/' . $chapters['1961']->slug],
+    ['label' => '1962', 'url' => '/books/' . $book->slug . '/chapter/' . $chapters['1962']->slug],
+    ['label' => '1963', 'url' => '/books/' . $book->slug . '/chapter/' . $chapters['1963']->slug],
+    ['label' => '1964', 'url' => '/books/' . $book->slug . '/chapter/' . $chapters['1964']->slug],
+    ['label' => '1965', 'url' => '/books/' . $book->slug . '/chapter/' . $chapters['1965']->slug],
+    ['label' => '1966', 'url' => '/books/' . $book->slug . '/chapter/' . $chapters['1966']->slug],
+    ['label' => '1967', 'url' => '/books/' . $book->slug . '/chapter/' . $chapters['1967']->slug],
+    ['label' => '1968', 'url' => '/books/' . $book->slug . '/chapter/' . $chapters['1968']->slug],
 ];
 
-$contents = "# Contents\n\n";
-$contents .= "<div class=\"mj-book-contents\">\n";
+$contents = "<div class=\"mj-book-contents\">\n";
 $contents .= "  <div class=\"mj-book-contents-label\">CONTENTS</div>\n";
 $contents .= "  <div class=\"mj-book-contents-list\">\n";
 foreach ($tocRows as $row) {
-    $contents .= "    <div class=\"mj-book-contents-row\"><a href=\"{$row['url']}\">{$row['label']}</a><span>{$row['page']}</span></div>\n";
+    $contents .= "    <div class=\"mj-book-contents-row\"><a href=\"{$row['url']}\">{$row['label']}</a></div>\n";
 }
 $contents .= "  </div>\n";
 $contents .= "</div>\n";
@@ -180,8 +179,6 @@ $code = $code.Replace('__BOOK_NAME__', $bookNameEscaped)
 if ($WithSample) {
   $code += @'
 $sample = <<<'MD'
-# 1960-01-13 - On Kurosawa and Drunken Angel
-
 Entry Date: 1960-01-13
 Year: 1960
 Source Page: p. 8
