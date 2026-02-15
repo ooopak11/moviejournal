@@ -20,17 +20,6 @@ body {
   letter-spacing: 0.01em;
 }
 
-.header {
-  background: rgba(223, 210, 182, 0.96) !important;
-  border-bottom: 1px solid rgba(60, 43, 29, 0.24) !important;
-}
-
-.header-search-box,
-.search-box {
-  background: rgba(178, 164, 136, 0.9) !important;
-  border-color: transparent !important;
-}
-
 .primary-background,
 .card,
 .entity-list-item,
@@ -104,11 +93,116 @@ a,
   background: rgba(201, 186, 156, 0.34) !important;
 }
 
+.mj-minimal-shell #header {
+  background: rgba(223, 210, 182, 0.96) !important;
+  border-bottom: 1px solid rgba(60, 43, 29, 0.24) !important;
+  padding-top: 0.45rem !important;
+  padding-bottom: 0.45rem !important;
+}
+
+.mj-minimal-shell #header .logo-image {
+  display: none !important;
+}
+
+.mj-minimal-shell #header .logo-text {
+  font-size: 2rem;
+  letter-spacing: 0.02em;
+}
+
+.mj-minimal-shell #header .hide-over-l {
+  display: none !important;
+}
+
+.mj-minimal-shell #header .header-links {
+  display: none !important;
+}
+
+.mj-minimal-shell #header .flex-container-column {
+  margin-top: 0.2rem;
+}
+
+.mj-minimal-shell #header .search-box {
+  max-width: 560px;
+  background: rgba(178, 164, 136, 0.9) !important;
+  border-color: transparent !important;
+}
+
+.mj-header-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.mj-header-button {
+  border: 1px solid rgba(62, 45, 31, 0.38);
+  background: transparent;
+  color: #2b1d12;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.86rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.mj-header-button:hover {
+  background: rgba(200, 186, 158, 0.42);
+}
+
+.mj-tools-layer {
+  position: fixed;
+  top: 3.4rem;
+  right: 0.95rem;
+  z-index: 120;
+  width: min(360px, calc(100vw - 1.4rem));
+  max-height: calc(100vh - 4.6rem);
+  overflow: auto;
+  border: 1px solid var(--mj-border);
+  background: var(--mj-paper);
+  padding: 0.5rem 0.75rem 0.7rem;
+  box-shadow: 0 10px 18px rgba(31, 23, 15, 0.1);
+}
+
+.mj-tools-layer.mj-hidden {
+  display: none !important;
+}
+
+.mj-tools-title {
+  margin: 0.45rem 0 0.35rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.mj-tools-section {
+  padding-top: 0.45rem;
+  margin-top: 0.45rem;
+  border-top: 1px solid var(--mj-border);
+}
+
+.mj-tools-section:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.mj-tools-layer .entity-meta,
+.mj-tools-layer .icon-list {
+  background: transparent !important;
+  border: none !important;
+}
+
+.mj-tools-layer .entity-meta-item,
+.mj-tools-layer .icon-list-item {
+  border: none !important;
+  padding-left: 0 !important;
+}
+
 .mj-reader-active .tri-layout-sides,
 .mj-reader-active nav.breadcrumbs,
 .mj-reader-active #sibling-navigation,
 .mj-reader-active .comments-container,
 .mj-reader-active #pointer,
+.mj-reader-active .tri-layout-mobile-tabs,
 .mj-reader-active .entity-header-actions,
 .mj-reader-active .entity-header .actions,
 .mj-reader-active a[href*="/export/"],
@@ -208,6 +302,9 @@ a,
   .page-content h1 {
     font-size: 2rem;
   }
+  .mj-minimal-shell #header .logo-text {
+    font-size: 1.5rem;
+  }
   .mj-reader-active .page-content {
     padding: 0.6rem 0.9rem 1.9rem !important;
   }
@@ -217,11 +314,15 @@ a,
   .mj-book-contents-row a {
     font-size: 2.1rem;
   }
+  .mj-tools-layer {
+    top: 3rem;
+    right: 0.4rem;
+    width: calc(100vw - 0.8rem);
+  }
 }
 </style>
 <script>
 (function () {
-  function initReaderMode() {
   function normalize(text) {
     var value = String(text || "").toLowerCase();
     var out = "";
@@ -255,73 +356,207 @@ a,
     }
   }
 
-  var path = window.location.pathname || "";
-  if (path.indexOf("/edit") !== -1) return;
-
-  var pageBody = document.querySelector(".page-content > div[dir='auto']");
-  if (!pageBody) return;
-
-  var body = document.body;
-  if (!body) return;
-
-  body.classList.add("mj-reader-active");
-
-  var pageTitle = pageBody.querySelector("h1#bkmrk-page-title");
-  if (pageTitle && normalize(pageTitle.textContent) === "contents") {
-    body.classList.add("mj-contents-page");
+  function cleanClonedLinks(rootEl) {
+    rootEl.querySelectorAll("a").forEach(function (link) {
+      var href = link.getAttribute("href") || "";
+      if (href.indexOf("/export/") !== -1 || href.indexOf("favorite") !== -1 || href.indexOf("favourite") !== -1) {
+        link.remove();
+      }
+    });
+    rootEl.querySelectorAll("button, form").forEach(function (el) { el.remove(); });
   }
 
-  var firstHeading = null;
-  var child = pageBody.firstElementChild;
-  while (child) {
-    if (isHeading(child) && child.id !== "bkmrk-page-title") {
-      firstHeading = child;
-      break;
+  function buildToolsPanel(panel) {
+    panel.innerHTML = "";
+
+    var detailsBox = document.querySelector("#page-details .entity-meta");
+    var actionsBox = document.querySelector(".tri-layout-right .actions.mb-xl .icon-list") ||
+      document.querySelector(".tri-layout-right .actions .icon-list");
+
+    var hasAny = false;
+
+    if (detailsBox) {
+      var detailsSection = document.createElement("section");
+      detailsSection.className = "mj-tools-section";
+      var detailsTitle = document.createElement("h3");
+      detailsTitle.className = "mj-tools-title";
+      detailsTitle.textContent = "Details";
+      detailsSection.appendChild(detailsTitle);
+      var detailsClone = detailsBox.cloneNode(true);
+      cleanClonedLinks(detailsClone);
+      detailsSection.appendChild(detailsClone);
+      panel.appendChild(detailsSection);
+      hasAny = true;
     }
-    child = child.nextElementSibling;
-  }
 
-  if (pageTitle && firstHeading && normalize(pageTitle.textContent) === normalize(firstHeading.textContent)) {
-    firstHeading.classList.add("mj-reader-hidden");
-  }
-
-  var headings = Array.prototype.slice.call(pageBody.querySelectorAll("h2,h3,h4"));
-  var editorOnlyNames = new Set([
-    "source text",
-    "editorial notes",
-    "related entries",
-    "원문",
-    "편집 노트",
-    "관련 엔트리"
-  ]);
-
-  headings.forEach(function (h) {
-    if (editorOnlyNames.has(normalize(h.textContent))) {
-      hideSectionFrom(h);
+    if (actionsBox) {
+      var actionsSection = document.createElement("section");
+      actionsSection.className = "mj-tools-section";
+      var actionsTitle = document.createElement("h3");
+      actionsTitle.className = "mj-tools-title";
+      actionsTitle.textContent = "Actions";
+      actionsSection.appendChild(actionsTitle);
+      var actionsClone = actionsBox.cloneNode(true);
+      cleanClonedLinks(actionsClone);
+      actionsSection.appendChild(actionsClone);
+      panel.appendChild(actionsSection);
+      hasAny = true;
     }
-  });
 
-  var sideMeta = document.querySelector("#page-details .entity-meta");
-  if (sideMeta && !pageBody.querySelector(".mj-page-meta-footer")) {
-    var footer = document.createElement("section");
-    footer.className = "mj-page-meta-footer";
+    if (!hasAny) {
+      var empty = document.createElement("p");
+      empty.className = "mj-tools-title";
+      empty.textContent = "No tools available";
+      panel.appendChild(empty);
+    }
 
-    var clonedMeta = sideMeta.cloneNode(true);
-    clonedMeta.querySelectorAll("a.entity-meta-item[href*='/revisions']").forEach(function (el) { el.remove(); });
-    clonedMeta.querySelectorAll("a.entity-meta-item[href*='/references']").forEach(function (el) { el.remove(); });
-    clonedMeta.querySelectorAll("a.entity-meta-item[href*='/export/']").forEach(function (el) { el.remove(); });
-    clonedMeta.querySelectorAll("a.entity-meta-item[href*='favorite'],a.entity-meta-item[href*='favourite']").forEach(function (el) { el.remove(); });
-    clonedMeta.querySelectorAll("button, form").forEach(function (el) { el.remove(); });
-
-    footer.appendChild(clonedMeta);
-    pageBody.appendChild(footer);
+    return hasAny;
   }
+
+  function initMinimalHeader() {
+    var body = document.body;
+    if (!body) return;
+
+    if ((window.location.pathname || "").indexOf("/edit") !== -1) return;
+
+    body.classList.add("mj-minimal-shell");
+
+    var header = document.getElementById("header");
+    if (!header) return;
+
+    var logo = header.querySelector("a.logo");
+    if (logo) {
+      logo.setAttribute("href", "/books/movie-journal/page/contents");
+    }
+
+    var topRow = header.querySelector(".flex-container-row.justify-space-between") || header.querySelector(".flex-container-row");
+    if (!topRow) return;
+
+    var controls = document.createElement("div");
+    controls.className = "mj-header-controls";
+
+    var toolsButton = document.createElement("button");
+    toolsButton.type = "button";
+    toolsButton.className = "mj-header-button";
+    toolsButton.textContent = "Tools";
+    controls.appendChild(toolsButton);
+
+    var loginLink = header.querySelector("a[href$='/login']");
+    var logoutLink = header.querySelector("a[href$='/logout']");
+    if (loginLink && !logoutLink) {
+      var miniLogin = document.createElement("a");
+      miniLogin.className = "mj-header-button";
+      miniLogin.href = "/login";
+      miniLogin.textContent = "Login";
+      controls.appendChild(miniLogin);
+    }
+
+    topRow.appendChild(controls);
+
+    var panel = document.createElement("aside");
+    panel.className = "mj-tools-layer mj-hidden print-hidden";
+    document.body.appendChild(panel);
+
+    var hasTools = false;
+    function refreshTools() {
+      hasTools = buildToolsPanel(panel);
+      toolsButton.style.display = hasTools ? "inline-block" : "none";
+      if (!hasTools) panel.classList.add("mj-hidden");
+    }
+
+    refreshTools();
+
+    toolsButton.addEventListener("click", function () {
+      refreshTools();
+      if (!hasTools) return;
+      panel.classList.toggle("mj-hidden");
+    });
+
+    document.addEventListener("click", function (event) {
+      var inPanel = panel.contains(event.target);
+      var onButton = toolsButton.contains(event.target);
+      if (!inPanel && !onButton) {
+        panel.classList.add("mj-hidden");
+      }
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        panel.classList.add("mj-hidden");
+      }
+    });
+  }
+
+  function initReaderMode() {
+    var path = window.location.pathname || "";
+    if (path.indexOf("/edit") !== -1) return;
+
+    var pageBody = document.querySelector(".page-content > div[dir='auto']");
+    if (!pageBody) return;
+
+    var body = document.body;
+    if (!body) return;
+
+    body.classList.add("mj-reader-active");
+
+    var pageTitle = pageBody.querySelector("h1#bkmrk-page-title");
+    if (pageTitle && normalize(pageTitle.textContent) === "contents") {
+      body.classList.add("mj-contents-page");
+    }
+
+    var firstHeading = null;
+    var child = pageBody.firstElementChild;
+    while (child) {
+      if (isHeading(child) && child.id !== "bkmrk-page-title") {
+        firstHeading = child;
+        break;
+      }
+      child = child.nextElementSibling;
+    }
+
+    if (pageTitle && firstHeading && normalize(pageTitle.textContent) === normalize(firstHeading.textContent)) {
+      firstHeading.classList.add("mj-reader-hidden");
+    }
+
+    var headings = Array.prototype.slice.call(pageBody.querySelectorAll("h2,h3,h4"));
+    var editorOnlyNames = new Set([
+      "source text",
+      "editorial notes",
+      "related entries",
+      "원문",
+      "편집 노트",
+      "관련 엔트리"
+    ]);
+
+    headings.forEach(function (h) {
+      if (editorOnlyNames.has(normalize(h.textContent))) {
+        hideSectionFrom(h);
+      }
+    });
+
+    var sideMeta = document.querySelector("#page-details .entity-meta");
+    if (sideMeta && !pageBody.querySelector(".mj-page-meta-footer")) {
+      var footer = document.createElement("section");
+      footer.className = "mj-page-meta-footer";
+
+      var clonedMeta = sideMeta.cloneNode(true);
+      cleanClonedLinks(clonedMeta);
+      clonedMeta.querySelectorAll("a.entity-meta-item[href*='/revisions']").forEach(function (el) { el.remove(); });
+      clonedMeta.querySelectorAll("a.entity-meta-item[href*='/references']").forEach(function (el) { el.remove(); });
+      footer.appendChild(clonedMeta);
+      pageBody.appendChild(footer);
+    }
+  }
+
+  function init() {
+    initMinimalHeader();
+    initReaderMode();
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initReaderMode);
+    document.addEventListener("DOMContentLoaded", init);
   } else {
-    initReaderMode();
+    init();
   }
 })();
 </script>
