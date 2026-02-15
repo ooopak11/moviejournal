@@ -17,6 +17,7 @@ Jonas Mekas의 *Movie Journal* 공동 번역/열람 사이트를 BookStack으로
 - `docs/wiki-policy-benchmark.md`: 대표 위키 정책 벤치마크와 권한 권고안
 - `docs/server-and-docker-basics.md`: 동적 사이트/서버/Docker 기초 설명
 - `docker-compose.yml`: BookStack + MariaDB 스택
+- `docker-compose.external-db.yml`: 외부 MariaDB 사용 시 BookStack 단독 스택
 - `.env.example`: 환경 변수 템플릿
 - `scripts/bootstrap.ps1`: `.env` 생성(APP_KEY/DB 비밀번호 자동 생성)
 - `scripts/validate-env.ps1`: `.env` 검증
@@ -24,6 +25,8 @@ Jonas Mekas의 *Movie Journal* 공동 번역/열람 사이트를 BookStack으로
 - `scripts/create-admin.ps1`: 관리자 계정 생성/초기화
 - `scripts/show-callback-urls.ps1`: OAuth 콜백 URL 출력
 - `scripts/configure-registration-role.ps1`: 가입 기본 역할(예: Editor) 설정
+- `scripts/set-oauth-env.ps1`: OAuth 앱 키를 `.env`에 반영
+- `scripts/check-login-providers.ps1`: 로그인 페이지 소셜 버튼 노출 확인
 
 ## 빠른 시작
 

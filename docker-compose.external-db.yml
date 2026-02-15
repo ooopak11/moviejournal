@@ -1,25 +1,8 @@
 services:
-  bookstack_db:
-    image: lscr.io/linuxserver/mariadb:latest
-    container_name: moviejournal_db
-    restart: unless-stopped
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TZ}
-      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
-      - MYSQL_DATABASE=${DB_DATABASE}
-      - MYSQL_USER=${DB_USERNAME}
-      - MYSQL_PASSWORD=${DB_PASSWORD}
-    volumes:
-      - bookstack_db_data:/config
-
   bookstack:
     image: lscr.io/linuxserver/bookstack:latest
     container_name: moviejournal_bookstack
     restart: unless-stopped
-    depends_on:
-      - bookstack_db
     environment:
       - PUID=1000
       - PGID=1000
@@ -45,4 +28,4 @@ services:
 
 volumes:
   bookstack_data:
-  bookstack_db_data:
+

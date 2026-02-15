@@ -41,6 +41,16 @@ GOOGLE_APP_SECRET=<client secret>
 GOOGLE_AUTO_REGISTER=true
 ```
 
+스크립트로 입력:
+
+```powershell
+.\scripts\set-oauth-env.ps1 `
+  -GithubAppId "<github client id>" `
+  -GithubAppSecret "<github client secret>" `
+  -GoogleAppId "<google client id>" `
+  -GoogleAppSecret "<google client secret>"
+```
+
 ## 4) 재기동
 
 ```powershell
@@ -65,3 +75,9 @@ docker compose up -d
 3. 첫 로그인 시 자동 가입
 4. 신규 계정의 기본 역할이 `Editor`
 5. 리비전 히스토리로 롤백 가능
+
+로그인 페이지 버튼 확인:
+
+```powershell
+.\scripts\check-login-providers.ps1
+```

@@ -5,6 +5,8 @@ $baseRequired = @(
   "APP_KEY",
   "DB_ROOT_PASSWORD",
   "DB_DATABASE",
+  "DB_HOST",
+  "DB_PORT",
   "DB_USERNAME",
   "DB_PASSWORD",
   "GITHUB_AUTO_REGISTER",

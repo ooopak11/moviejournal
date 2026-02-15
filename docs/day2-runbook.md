@@ -39,6 +39,14 @@ docker logs moviejournal_bookstack --tail 100
 참고:
 
 - 현재 구성은 OneDrive 경로 이슈를 피하기 위해 bind mount 대신 Docker named volume을 사용함.
+- 기본 구성은 DB도 컨테이너로 같이 실행됨(호스트 MariaDB 설치 불필요).
+- 외부 MariaDB를 사용할 경우:
+
+```powershell
+docker compose -f docker-compose.external-db.yml up -d
+```
+
+이 경우 `.env`의 `DB_HOST`, `DB_PORT`, `DB_USERNAME`, `DB_PASSWORD`, `DB_DATABASE`를 외부 DB 기준으로 맞춰야 함.
 
 ## 접속
 
