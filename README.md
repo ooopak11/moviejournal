@@ -23,10 +23,12 @@ Jonas Mekas의 *Movie Journal* 공동 번역/열람 사이트를 BookStack으로
 - `scripts/validate-env.ps1`: `.env` 검증
 - `scripts/backup-db.ps1`: MariaDB 백업
 - `scripts/create-admin.ps1`: 관리자 계정 생성/초기화
+- `scripts/promote-admin.ps1`: 지정 사용자에게 Admin 역할 부여
 - `scripts/show-callback-urls.ps1`: OAuth 콜백 URL 출력
 - `scripts/configure-registration-role.ps1`: 가입 기본 역할(예: Editor) 설정
 - `scripts/set-oauth-env.ps1`: OAuth 앱 키를 `.env`에 반영(구글 전용 모드 지원)
 - `scripts/check-login-providers.ps1`: 로그인 페이지 소셜 버튼 노출 확인
+- `scripts/list-users-roles.ps1`: 사용자/역할 매핑 조회
 
 ## 빠른 시작
 
