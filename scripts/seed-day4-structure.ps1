@@ -57,7 +57,13 @@ foreach ($chapterNames as $chapterName) {
     $priority++;
 }
 
-$upsertPage = function ($parent, string $name, string $markdown, string $summary = 'Initial IA seed') use ($pageRepo) {
+$upsertPage = function (
+    $parent,
+    string $name,
+    string $markdown,
+    string $summary = 'Initial IA seed',
+    bool $updateExisting = false
+) use ($pageRepo) {
     $existingQuery = \BookStack\Entities\Models\Page::query()
         ->where('book_id', $parent instanceof \BookStack\Entities\Models\Book ? $parent->id : $parent->book_id)
         ->where('name', $name)
@@ -71,6 +77,11 @@ $upsertPage = function ($parent, string $name, string $markdown, string $summary
 
     $existing = $existingQuery->first();
     if ($existing) {
+        if (!$updateExisting) {
+            echo "Page exists: {$name}\n";
+            return $existing;
+        }
+
         $page = $pageRepo->update($existing, [
             'name' => $name,
             'markdown' => $markdown,
@@ -161,7 +172,7 @@ foreach ($tocRows as $row) {
 $contents .= "  </div>\n";
 $contents .= "</div>\n";
 
-$upsertPage($book, 'Contents', $contents, 'Generated table of contents');
+$upsertPage($book, 'Contents', $contents, 'Generated table of contents', true);
 '@
 
 $code = $code.Replace('__BOOK_NAME__', $bookNameEscaped)
