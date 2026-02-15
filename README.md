@@ -14,6 +14,7 @@ Jonas Mekas의 *Movie Journal* 공동 번역/열람 사이트를 BookStack으로
 - `docs/day1-foundation.md`: 권한 정책, 메타데이터, 페이지 템플릿
 - `docs/day2-runbook.md`: 로컬 스택 실행 절차
 - `docs/day3-auth-role.md`: Google/GitHub OAuth 및 역할 설정
+- `docs/day4-frontend-and-ia.md`: 책 스타일 테마/정보구조 적용
 - `docs/wiki-policy-benchmark.md`: 대표 위키 정책 벤치마크와 권한 권고안
 - `docs/server-and-docker-basics.md`: 동적 사이트/서버/Docker 기초 설명
 - `docker-compose.yml`: BookStack + MariaDB 스택
@@ -29,6 +30,8 @@ Jonas Mekas의 *Movie Journal* 공동 번역/열람 사이트를 BookStack으로
 - `scripts/set-oauth-env.ps1`: OAuth 앱 키를 `.env`에 반영(구글 전용 모드 지원)
 - `scripts/check-login-providers.ps1`: 로그인 페이지 소셜 버튼 노출 확인
 - `scripts/list-users-roles.ps1`: 사용자/역할 매핑 조회
+- `scripts/apply-moviejournal-theme.ps1`: 원서 무드 테마 적용
+- `scripts/seed-day4-structure.ps1`: Day 4 정보구조 자동 생성
 
 ## 빠른 시작
 
