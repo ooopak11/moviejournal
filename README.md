@@ -32,6 +32,7 @@ Jonas Mekas의 *Movie Journal* 공동 번역/열람 사이트를 BookStack으로
 - `scripts/list-users-roles.ps1`: 사용자/역할 매핑 조회
 - `scripts/apply-moviejournal-theme.ps1`: 원서 무드 테마 적용
 - `scripts/seed-day4-structure.ps1`: Day 4 정보구조 자동 생성
+- `scripts/configure-public-reader-mode.ps1`: 비로그인 열람/홈페이지/Export 권한 정책 적용
 - `theme/moviejournal-custom-head.html`: 읽기 모드 스타일/동작 커스텀 소스
 
 ## 빠른 시작
